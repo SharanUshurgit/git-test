@@ -56,6 +56,16 @@ pipeline {
                 sh "pwd;cd terraform/ ; terraform apply -input=false tfplan"
             }
         }
+        stage('checkout'){
+            steps{
+                git 'https://github.com/SharanUshurgit/ansible_test.git'   
+            }
+        }
+        stage('Execute Ansible'){
+            steps{
+                ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'apache.yml'   
+            }
+        }
     }
 
   }
