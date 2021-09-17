@@ -21,6 +21,7 @@ pipeline {
                         dir("terraform")
                         {
                             git "https://github.com/SharanUshurgit/git-test.git"
+                            git 'https://github.com/SharanUshurgit/ansible_test.git'
                         }
                     }
                 }
@@ -54,11 +55,6 @@ pipeline {
         stage('Apply') {
             steps {
                 sh "pwd;cd terraform/ ; terraform apply -input=false tfplan"
-            }
-        }
-        stage('checkout'){
-            steps{
-                git 'https://github.com/SharanUshurgit/ansible_test.git'   
             }
         }
         stage('Execute Ansible'){
